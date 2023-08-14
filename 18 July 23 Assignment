@@ -73,9 +73,29 @@ following requirements:
 ● The log message should be "Hello, World!"
 ● The log level should be set to "INFO."
 ● The log file should append new log entries without overwriting previous ones.
-Ans:
+Ans: 
+import logging
+logging.basicConfig(
+    filename='app.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+logging.info("Hello, World!")
 
 11. Create a Python program that logs an error message to the console and a file named
 "errors.log" if an exception occurs during the program's execution. The error
 message should include the exception type and a timestamp.
-Ans:
+def main():
+    logging.basicConfig(
+        level=logging.ERROR,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+
+    try:
+        result = 1 / 0
+    except Exception as e:
+        print("An exception occurred:", e)
+        logging.error(f"Exception occurred: {type(e)._name_} - {e}")
+        logging.error(traceback.format_exc())
